@@ -218,8 +218,15 @@
           </header>
 
           <nav class="w-full px-6 py-3 sticky top-0 z-50" style="background-color: ${surfaceColor}; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-            <div class="max-w-6xl mx-auto">
-              <div class="flex justify-center gap-4">
+            <div class="max-w-6xl mx-auto flex justify-between items-center">
+              
+              <div class="flex-shrink-0">
+                  <img src="https://www.simpleimageresizer.com/_uploads/photos/b15025fe/upscalemedia-transformed.png" 
+                        alt="Academy Logo" 
+                        class="w-15 h-14 object-contain">
+              </div>
+
+              <div class="flex flex-grow justify-center gap-4 mx-4 overflow-x-auto">
                 <button onclick="switchTab('about')" data-tab="about" class="tab-button active px-6 py-3 rounded-lg font-bold transition-all" style="font-size: ${baseSize}px; font-family: ${baseFontStack}; color: ${textColor}; background-color: rgba(255, 255, 255, 0.05);">
                   🧠 About
                 </button>
@@ -239,6 +246,9 @@
                   📞 Enquiry
                 </button>
               </div>
+              
+              <div class="w-8 h-8 flex-shrink-0"></div>
+
             </div>
           </nav>
 
@@ -396,36 +406,36 @@
                   style="font-size: ${baseSize * 2}px; font-family: ${baseFontStack}; color: ${textColor}; text-shadow: 2px 2px 4px rgba(0,0,0,0.8);" 
                   class="font-bold text-center mb-6"
                 >
-                  📸 Academy Gallery
+                  📸 Academy Gallery (Click to Enlarge!)
                 </h2>
                 <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                   
-                  <div class="rounded-xl overflow-hidden shadow-lg transform hover:scale-[1.02] transition-transform duration-300" style="background-color: rgba(0,0,0,0.4);">
+                  <div class="rounded-xl overflow-hidden shadow-lg transform hover:scale-[1.02] transition-transform duration-300 cursor-pointer" style="background-color: rgba(0,0,0,0.4);" onclick="openLightbox('https://images.unsplash.com/photo-1541334991136-11f8b80b2d56?q=80&w=3000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')">
                     <img src="https://images.unsplash.com/photo-1541334991136-11f8b80b2d56?q=80&w=3000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Tournament concentration" class="w-full h-48 object-cover">
                     <p class="p-2 text-center text-sm" style="color: ${textColor};">Intense Focus in a Tournament</p>
                   </div>
 
-                  <div class="rounded-xl overflow-hidden shadow-lg transform hover:scale-[1.02] transition-transform duration-300" style="background-color: rgba(0,0,0,0.4);">
+                  <div class="rounded-xl overflow-hidden shadow-lg transform hover:scale-[1.02] transition-transform duration-300 cursor-pointer" style="background-color: rgba(0,0,0,0.4);" onclick="openLightbox('https://images.unsplash.com/photo-1616781297184-75c123f81e28?q=80&w=3000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')">
                     <img src="https://images.unsplash.com/photo-1616781297184-75c123f81e28?q=80&w=3000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Group chess lesson" class="w-full h-48 object-cover">
                     <p class="p-2 text-center text-sm" style="color: ${textColor};">Group Class Strategic Discussion</p>
                   </div>
 
-                  <div class="rounded-xl overflow-hidden shadow-lg transform hover:scale-[1.02] transition-transform duration-300" style="background-color: rgba(0,0,0,0.4);">
+                  <div class="rounded-xl overflow-hidden shadow-lg transform hover:scale-[1.02] transition-transform duration-300 cursor-pointer" style="background-color: rgba(0,0,0,0.4);" onclick="openLightbox('https://images.unsplash.com/photo-1598256561571-0ce331e4af78?q=80&w=3000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')">
                     <img src="https://images.unsplash.com/photo-1598256561571-0ce331e4af78?q=80&w=3000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Coach teaching a student" class="w-full h-48 object-cover">
                     <p class="p-2 text-center text-sm" style="color: ${textColor};">One-on-One Personalized Training</p>
                   </div>
                   
-                  <div class="rounded-xl overflow-hidden shadow-lg transform hover:scale-[1.02] transition-transform duration-300" style="background-color: rgba(0,0,0,0.4);">
+                  <div class="rounded-xl overflow-hidden shadow-lg transform hover:scale-[1.02] transition-transform duration-300 cursor-pointer" style="background-color: rgba(0,0,0,0.4);" onclick="openLightbox('https://images.unsplash.com/photo-1593855581177-d352c803023e?q=80&w=3000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')">
                     <img src="https://images.unsplash.com/photo-1593855581177-d352c803023e?q=80&w=3000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Student holding a trophy" class="w-full h-48 object-cover">
                     <p class="p-2 text-center text-sm" style="color: ${textColor};">Celebrating Our Champions! 🏆</p>
                   </div>
 
-                  <div class="rounded-xl overflow-hidden shadow-lg transform hover:scale-[1.02] transition-transform duration-300" style="background-color: rgba(0,0,0,0.4);">
+                  <div class="rounded-xl overflow-hidden shadow-lg transform hover:scale-[1.02] transition-transform duration-300 cursor-pointer" style="background-color: rgba(0,0,0,0.4);" onclick="openLightbox('https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=3000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')">
                     <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=3000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Online chess class" class="w-full h-48 object-cover">
                     <p class="p-2 text-center text-sm" style="color: ${textColor};">Our Seamless Online Sessions</p>
                   </div>
 
-                  <div class="rounded-xl overflow-hidden shadow-lg transform hover:scale-[1.02] transition-transform duration-300" style="background-color: rgba(0,0,0,0.4);">
+                  <div class="rounded-xl overflow-hidden shadow-lg transform hover:scale-[1.02] transition-transform duration-300 cursor-pointer" style="background-color: rgba(0,0,0,0.4);" onclick="openLightbox('https://images.unsplash.com/photo-1571409605349-2c70094d241c?q=80&w=3000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')">
                     <img src="https://images.unsplash.com/photo-1571409605349-2c70094d241c?q=80&w=3000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Kids playing chess" class="w-full h-48 object-cover">
                     <p class="p-2 text-center text-sm" style="color: ${textColor};">Casual Play and Learning</p>
                   </div>
@@ -468,24 +478,25 @@
                 </div>
               </div>
             </div>
+            
             <div id="contact-tab" class="tab-content">
-              <div class="max-w-4xl mx-auto">
-                <div class="rounded-2xl p-6 shadow-2xl text-center" style="background-color: rgba(0, 0, 0, 0.5);">
-                  <h2 style="font-size: ${baseSize * 2}px; font-family: ${baseFontStack}; color: ${textColor};" class="font-bold mb-4">📞 Contact & Support</h2>
-                  <div class="space-y-6">
-                    <div>
-                      <p style="font-size: ${baseSize}px; font-family: ${baseFontStack}; color: ${textColor}; font-weight: bold;" class="mb-2">📱 Phone / WhatsApp:</p>
-                      <a href="tel:+918240526447" id="phone-link" style="font-size: ${baseSize * 1.1}px; font-family: ${baseFontStack}; color: ${textColor};" class="hover:opacity-80 transition-opacity">${config.phone_number || defaultConfig.phone_number}</a>
-                    </div>
-                    <div>
-                      <p style="font-size: ${baseSize}px; font-family: ${baseFontStack}; color: ${textColor}; font-weight: bold;" class="mb-2">📧 Email:</p>
-                      <a href="mailto:vishnukejriwal1996@gmail.com" id="email-link" style="font-size: ${baseSize * 1.1}px; font-family: ${baseFontStack}; color: ${textColor};" class="hover:opacity-80 transition-opacity">${config.email_address || defaultConfig.email_address}</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+              <div class="max-w-4xl mx-auto">
+               <div class="rounded-2xl p-6 shadow-2xl text-center" style="background-color: rgba(0, 0, 0, 0.5);">
+                   <h2 style="font-size: ${baseSize * 2}px; font-family: ${baseFontStack}; color: ${textColor};" class="font-bold mb-4">📞 Contact & Support</h2>
+                   <div class="space-y-0">
+                     <div>
+                       <p style="font-size: ${baseSize}px; font-family: ${baseFontStack}; color: ${textColor}; font-weight: bold;" class="mb-2">📱 Phone / WhatsApp:</p>
+                       <a href="tel:+918240526447" id="phone-link" style="font-size: ${baseSize * 1.1}px; font-family: ${baseFontStack}; color: ${textColor};" class="hover:opacity-80 transition-opacity">${config.phone_number || defaultConfig.phone_number}</a>
+                     </div>
+                     <div>
+                       <p style="font-size: ${baseSize}px; font-family: ${baseFontStack}; color: ${textColor}; font-weight: bold;" class="mb-2">📧 Email:</p>
+                       <a href="mailto:vishnukejriwal1996@gmail.com" id="email-link" style="font-size: ${baseSize * 1.1}px; font-family: ${baseFontStack}; color: ${textColor};" class="hover:opacity-80 transition-opacity">${config.email_address || defaultConfig.email_address}</a>
+                     </div>
+                   </div>
+                 </div>
+               </div>
+             </div>
+            </div>
 
           <footer class="w-full py-2 px-6 text-center" style="background-color: ${surfaceColor};">
             <p style="font-size: ${baseSize * 0.85}px; font-family: ${baseFontStack}; color: ${textColor};" class="opacity-75">© 2017 Vishnu Chess Academy. All rights reserved.</p>
