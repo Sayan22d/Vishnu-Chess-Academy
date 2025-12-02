@@ -217,42 +217,72 @@
 
           </header>
 
-          <nav class="w-full px-6 py-3 sticky top-0 z-50" style="background-color: ${surfaceColor}; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-            <div class="max-w-6xl mx-auto flex justify-between items-center">
-              
+          <nav class="w-full px-4 py-3 sticky top-0 z-50 bg-white/10 backdrop-blur-md shadow-lg">
+            <div class="max-w-6xl mx-auto flex items-center justify-between">
+          
+              <!-- Logo -->
               <div class="flex-shrink-0">
-                  <img src="https://www.simpleimageresizer.com/_uploads/photos/b15025fe/upscalemedia-transformed.png" 
-                        alt="Academy Logo" 
-                        class="w-15 h-14 object-contain">
+                <img src="https://www.simpleimageresizer.com/_uploads/photos/b15025fe/upscalemedia-transformed.png"
+                     alt="Academy Logo"
+                     class="w-14 h-14 object-contain">
               </div>
-
-              <div class="flex flex-grow justify-center gap-4 mx-4 overflow-x-auto">
-                <button onclick="switchTab('about')" data-tab="about" class="tab-button active px-6 py-3 rounded-lg font-bold transition-all" style="font-size: ${baseSize}px; font-family: ${baseFontStack}; color: ${textColor}; background-color: rgba(255, 255, 255, 0.05);">
+          
+              <!-- Menu Buttons -->
+              <div class="flex justify-start mx-2 overflow-x-auto gap-2 md:gap-4 md:mx-4 scrollbar-hide">
+          
+                <button onclick="switchTab('about')" data-tab="about"
+                        class="tab-button active px-4 py-2 md:px-6 md:py-3 rounded-lg font-bold whitespace-nowrap
+                               transition-all bg-white/10 text-white">
                   🧠 About
                 </button>
-                <button onclick="switchTab('payment')" data-tab="payment" class="tab-button px-6 py-3 rounded-lg font-bold transition-all" style="font-size: ${baseSize}px; font-family: ${baseFontStack}; color: ${textColor}; background-color: rgba(255, 255, 255, 0.05);">
+          
+                <button onclick="switchTab('payment')" data-tab="payment"
+                        class="tab-button px-4 py-2 md:px-6 md:py-3 rounded-lg font-bold whitespace-nowrap
+                               transition-all bg-white/10 text-white">
                   💳 Payments
                 </button>
-                <button onclick="switchTab('whychoose')" data-tab="whychoose" class="tab-button px-6 py-3 rounded-lg font-bold transition-all" style="font-size: ${baseSize}px; font-family: ${baseFontStack}; color: ${textColor}; background-color: rgba(255, 255, 255, 0.05);">
+          
+                <button onclick="switchTab('whychoose')" data-tab="whychoose"
+                        class="tab-button px-4 py-2 md:px-6 md:py-3 rounded-lg font-bold whitespace-nowrap
+                               transition-all bg-white/10 text-white">
                   🏅 Services
                 </button>
-                <button onclick="switchTab('Photos')" data-tab="Photos" class="tab-button px-6 py-3 rounded-lg font-bold transition-all" style="font-size: ${baseSize}px; font-family: ${baseFontStack}; color: ${textColor}; background-color: rgba(255, 255, 255, 0.05);">
+          
+                <button onclick="switchTab('Photos')" data-tab="Photos"
+                        class="tab-button px-4 py-2 md:px-6 md:py-3 rounded-lg font-bold whitespace-nowrap
+                               transition-all bg-white/10 text-white">
                   📸 Gallery
                 </button>
-                <button onclick="switchTab('Teams')" data-tab="Teams" class="tab-button px-6 py-3 rounded-lg font-bold transition-all" style="font-size: ${baseSize}px; font-family: ${baseFontStack}; color: ${textColor}; background-color: rgba(255, 255, 255, 0.05);">
+          
+                <button onclick="switchTab('Teams')" data-tab="Teams"
+                        class="tab-button px-4 py-2 md:px-6 md:py-3 rounded-lg font-bold whitespace-nowrap
+                               transition-all bg-white/10 text-white">
                   🎭 Teams
                 </button>
-                <button onclick="switchTab('contact')" data-tab="contact" class="tab-button px-6 py-3 rounded-lg font-bold transition-all" style="font-size: ${baseSize}px; font-family: ${baseFontStack}; color: ${textColor}; background-color: rgba(255, 255, 255, 0.05);">
+          
+                <button onclick="switchTab('contact')" data-tab="contact"
+                        class="tab-button px-4 py-2 md:px-6 md:py-3 rounded-lg font-bold whitespace-nowrap
+                               transition-all bg-white/10 text-white">
                   📞 Enquiry
                 </button>
+          
+                <button onclick="switchTab('rate')" data-tab="rate"
+                        class="tab-button px-4 py-2 md:px-6 md:py-3 rounded-lg font-bold whitespace-nowrap
+                               transition-all bg-yellow-400/20 text-yellow-300">
+                  ⭐ Rate Us
+                </button>
+          
               </div>
-              
+          
+              <!-- Spacer -->
               <div class="w-8 h-8 flex-shrink-0"></div>
-
+          
             </div>
           </nav>
 
+
           <div class="w-full py-4 px-6 min-h-screen">
+            
             <div id="about-tab" class="tab-content active">
               <div class="max-w-5xl mx-auto">
                 <div class="rounded-2xl p-6 shadow-2xl mb-6" style="background-color: rgba(0, 0, 0, 0.5);">
@@ -480,25 +510,78 @@
             </div>
             
             <div id="contact-tab" class="tab-content">
-              <div class="max-w-4xl mx-auto">
-               <div class="rounded-2xl p-6 shadow-2xl text-center" style="background-color: rgba(0, 0, 0, 0.5);">
-                   <h2 style="font-size: ${baseSize * 2}px; font-family: ${baseFontStack}; color: ${textColor};" class="font-bold mb-4">📞 Contact & Support</h2>
-                   <div class="space-y-0">
-                     <div>
-                       <p style="font-size: ${baseSize}px; font-family: ${baseFontStack}; color: ${textColor}; font-weight: bold;" class="mb-2">📱 Phone / WhatsApp:</p>
-                       <a href="tel:+918240526447" id="phone-link" style="font-size: ${baseSize * 1.1}px; font-family: ${baseFontStack}; color: ${textColor};" class="hover:opacity-80 transition-opacity">${config.phone_number || defaultConfig.phone_number}</a>
-                     </div>
-                     <div>
-                       <p style="font-size: ${baseSize}px; font-family: ${baseFontStack}; color: ${textColor}; font-weight: bold;" class="mb-2">📧 Email:</p>
-                       <a href="mailto:vishnukejriwal1996@gmail.com" id="email-link" style="font-size: ${baseSize * 1.1}px; font-family: ${baseFontStack}; color: ${textColor};" class="hover:opacity-80 transition-opacity">${config.email_address || defaultConfig.email_address}</a>
-                     </div>
-                   </div>
-                 </div>
-               </div>
-             </div>
-            </div>
+              <div class="max-w-4xl mx-auto">
+                <div class="rounded-2xl p-6 shadow-2xl text-center" style="background-color: rgba(0, 0, 0, 0.5);">
+                  <h2 style="font-size: ${baseSize * 2}px; font-family: ${baseFontStack}; color: ${textColor};" class="font-bold mb-4">📞 Contact & Support</h2>
+                  <div class="space-y-6">
+                    <div>
+                      <p style="font-size: ${baseSize}px; font-family: ${baseFontStack}; color: ${textColor}; font-weight: bold;" class="mb-2">📱 Phone / WhatsApp:</p>
+                      <a href="tel:+918240526447" id="phone-link" style="font-size: ${baseSize * 1.1}px; font-family: ${baseFontStack}; color: ${textColor};" class="hover:opacity-80 transition-opacity">${config.phone_number || defaultConfig.phone_number}</a>
+                    </div>
+                    <div>
+                      <p style="font-size: ${baseSize}px; font-family: ${baseFontStack}; color: ${textColor}; font-weight: bold;" class="mb-2">📧 Email:</p>
+                      <a href="mailto:vishnukejriwal1996@gmail.com" id="email-link" style="font-size: ${baseSize * 1.1}px; font-family: ${baseFontStack}; color: ${textColor};" class="hover:opacity-80 transition-opacity">${config.email_address || defaultConfig.email_address}</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-          <footer class="w-full py-2 px-6 text-center" style="background-color: ${surfaceColor};">
+            <div id="rate-tab" class="tab-content">
+              <div class="max-w-4xl mx-auto">
+            
+                <div class="rounded-2xl p-6 shadow-2xl text-center" style="background-color: rgba(0, 0, 0, 0.5);">
+            
+                  <h2 style="font-size: ${baseSize * 2}px; font-family: ${baseFontStack}; color: ${textColor};"
+                      class="font-bold mb-4">
+                    ⭐ Rate & Reviews
+                  </h2>
+            
+                  <p style="font-size: ${baseSize}px; font-family: ${baseFontStack}; color: ${textColor};"
+                     class="mb-4">
+                    Current average rating on Google / public listings:
+                    <strong>4.8 / 5</strong>
+                  </p>
+            
+                  <div class="space-y-4 text-left">
+            
+                    <div class="bg-white/10 p-4 rounded-lg">
+                      <p style="font-size: ${baseSize * 1.1}px; font-family: ${baseFontStack}; color: ${textColor};">
+                        “The instructors at Vishnu Chess Academy provide engaging lessons and help students of all
+                        levels. Outstanding training environment.” — Verified Review
+                      </p>
+                    </div>
+            
+                    <div class="bg-white/10 p-4 rounded-lg">
+                      <p style="font-size: ${baseSize * 1.1}px; font-family: ${baseFontStack}; color: ${textColor};">
+                        “Very supportive coaches; my child’s chess improved a lot. Highly recommend for serious
+                        learners.” — Student Feedback
+                      </p>
+                    </div>
+            
+                  </div>
+                </div>
+            
+                <div class="rounded-2xl p-6 shadow-2xl text-center" style="background-color: rgba(0, 0, 0, 0.5);">
+                  <h2 style="font-size: ${baseSize * 2}px; font-family: ${baseFontStack}; color: ${textColor};"
+                      class="font-bold mb-4">
+                    📋 Submit Your Review
+                  </h2>
+            
+                  <p style="font-size: ${baseSize}px; font-family: ${baseFontStack}; color: ${textColor};" class="mb-4">
+                    We value your feedback! Please leave your review by clicking the button below:
+                  </p>
+            
+                  <button onclick="openReviewForm()" 
+                          class="px-6 py-3 rounded-lg font-bold bg-yellow-400/20 text-yellow-300 transition-all">
+                    Leave a Review
+                  </button>
+                </div>
+            
+              </div>
+            </div>
+
+          </div> <footer class="w-full py-2 px-6 text-center" style="background-color: ${surfaceColor};">
             <p style="font-size: ${baseSize * 0.85}px; font-family: ${baseFontStack}; color: ${textColor};" class="opacity-75">© 2017 Vishnu Chess Academy. All rights reserved.</p>
           </footer>
         </div>
@@ -518,7 +601,7 @@
       }, 0);
     }
     
-  
+     
     function mapToCapabilities(config) {
       return {
         recolorables: [
