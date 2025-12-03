@@ -217,61 +217,57 @@
 
           </header>
 
-          <nav class="w-full px-4 py-3 sticky top-0 z-50 bg-white/10 backdrop-blur-md shadow-lg">
+          <!-- NAVIGATION -->
+          <nav class="w-full px-4 py-3 sticky top-0 z-50 bg-[rgba(0,0,0,0.9)] backdrop-blur-md shadow-lg">
             <div class="max-w-6xl mx-auto flex items-center justify-between">
           
               <!-- Logo -->
               <div class="flex-shrink-0">
                 <img src="https://www.simpleimageresizer.com/_uploads/photos/b15025fe/upscalemedia-transformed.png"
                      alt="Academy Logo"
-                     class="w-14 h-14 object-contain">
+                     class="w-15 h-14 object-contain">
               </div>
           
-              <!-- Menu Buttons -->
-              <div class="flex justify-start mx-2 overflow-x-auto gap-2 md:gap-4 md:mx-4 scrollbar-hide">
-          
+              <!-- Menu Buttons with Slider -->
+              <div class="flex justify-start mx-2 overflow-x-auto gap-2 md:gap-4 md:mx-4 relative scrollbar-hide" id="tab-buttons-container">
+                
                 <button onclick="switchTab('about')" data-tab="about"
-                        class="tab-button active px-4 py-2 md:px-6 md:py-3 rounded-lg font-bold whitespace-nowrap
-                               transition-all bg-white/10 text-white">
+                        class="tab-button active px-4 py-2 md:px-6 md:py-3 rounded-lg font-bold whitespace-nowrap text-white transition-colors duration-300">
                   🧠 About
                 </button>
-          
+                
                 <button onclick="switchTab('payment')" data-tab="payment"
-                        class="tab-button px-4 py-2 md:px-6 md:py-3 rounded-lg font-bold whitespace-nowrap
-                               transition-all bg-white/10 text-white">
+                        class="tab-button px-4 py-2 md:px-6 md:py-3 rounded-lg font-bold whitespace-nowrap text-white transition-colors duration-300">
                   💳 Payments
                 </button>
-          
+                
                 <button onclick="switchTab('whychoose')" data-tab="whychoose"
-                        class="tab-button px-4 py-2 md:px-6 md:py-3 rounded-lg font-bold whitespace-nowrap
-                               transition-all bg-white/10 text-white">
+                        class="tab-button px-4 py-2 md:px-6 md:py-3 rounded-lg font-bold whitespace-nowrap text-white transition-colors duration-300">
                   🏅 Services
                 </button>
-          
+                
                 <button onclick="switchTab('Photos')" data-tab="Photos"
-                        class="tab-button px-4 py-2 md:px-6 md:py-3 rounded-lg font-bold whitespace-nowrap
-                               transition-all bg-white/10 text-white">
+                        class="tab-button px-4 py-2 md:px-6 md:py-3 rounded-lg font-bold whitespace-nowrap text-white transition-colors duration-300">
                   📸 Gallery
                 </button>
-          
+                
                 <button onclick="switchTab('Teams')" data-tab="Teams"
-                        class="tab-button px-4 py-2 md:px-6 md:py-3 rounded-lg font-bold whitespace-nowrap
-                               transition-all bg-white/10 text-white">
+                        class="tab-button px-4 py-2 md:px-6 md:py-3 rounded-lg font-bold whitespace-nowrap text-white transition-colors duration-300">
                   🎭 Teams
                 </button>
-          
+                
                 <button onclick="switchTab('contact')" data-tab="contact"
-                        class="tab-button px-4 py-2 md:px-6 md:py-3 rounded-lg font-bold whitespace-nowrap
-                               transition-all bg-white/10 text-white">
+                        class="tab-button px-4 py-2 md:px-6 md:py-3 rounded-lg font-bold whitespace-nowrap text-white transition-colors duration-300">
                   📞 Enquiry
                 </button>
-          
+                
                 <button onclick="switchTab('rate')" data-tab="rate"
-                        class="tab-button px-4 py-2 md:px-6 md:py-3 rounded-lg font-bold whitespace-nowrap
-                               transition-all bg-yellow-400/20 text-yellow-300">
+                        class="tab-button px-4 py-2 md:px-6 md:py-3 rounded-lg font-bold whitespace-nowrap text-white transition-colors duration-300">
                   ⭐ Rate Us
                 </button>
           
+                <!-- Slider -->
+                <span id="tab-slider" class="absolute bottom-0 h-1 bg-yellow-400 rounded-full transition-all duration-300"></span>
               </div>
           
               <!-- Spacer -->
