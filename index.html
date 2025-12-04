@@ -2,31 +2,71 @@
 <html lang="en">
  <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta name="HandheldFriendly" content="true">
   <title>Vishnu Chess Academy</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="/_sdk/element_sdk.js"></script>
   <style>
-    body {
-      box-sizing: border-box;
-    }
-    
+    /* Base styles */
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
     
+    html {
+      -webkit-text-size-adjust: 100%;
+      -webkit-tap-highlight-color: transparent;
+    }
+    
+    body {
+      box-sizing: border-box;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    
+    /* Responsive background */
     .chess-bg {
       background: 
         linear-gradient(130deg, rgba(15, 23, 42, 0.1) 0%, rgba(30, 41, 59, 0.1) 100%),
         url('https://images.unsplash.com/photo-1654457066813-234e82a5e3e0?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8Y2hlc3MlMjB3YWxscGFwZXJ8ZW58MHx8MHx8fDA%3D');
       background-size: cover, cover;
       background-position: center, center;
-      background-attachment: fixed, fixed;
+      background-attachment: scroll, scroll;
     }
     
+    @media (min-width: 1024px) {
+      .chess-bg {
+        background-attachment: fixed, fixed;
+      }
+    }
+    
+    /* Tab navigation responsive */
     .tab-button {
       transition: all 0.3s ease;
       position: relative;
+      white-space: nowrap;
+      font-size: 0.875rem;
+      padding: 0.5rem 0.75rem;
+    }
+    
+    @media (min-width: 640px) {
+      .tab-button {
+        font-size: 1rem;
+        padding: 0.75rem 1rem;
+      }
+    }
+    
+    @media (min-width: 768px) {
+      .tab-button {
+        padding: 0.875rem 1.5rem;
+      }
     }
     
     .tab-button::after {
@@ -65,8 +105,30 @@
       }
     }
     
+    /* Responsive typography */
+    .responsive-heading {
+      font-size: clamp(1.75rem, 5vw, 2.5rem);
+      line-height: 1.2;
+    }
+    
+    .responsive-subheading {
+      font-size: clamp(1.25rem, 3vw, 1.75rem);
+      line-height: 1.3;
+    }
+    
+    .responsive-text {
+      font-size: clamp(0.875rem, 2vw, 1rem);
+      line-height: 1.6;
+    }
+    
+    .responsive-small {
+      font-size: clamp(0.75rem, 1.5vw, 0.875rem);
+    }
+    
+    /* Feature cards */
     .feature-card {
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      min-height: 180px;
     }
     
     .feature-card:hover {
@@ -74,15 +136,61 @@
       box-shadow: 0 20px 40px rgba(0,0,0,0.3);
     }
     
-    .payment-card {
-      background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+    /* Responsive grids */
+    .responsive-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+      gap: 1.5rem;
     }
     
-    .hero-section {
-      background: linear-gradient(180deg, rgba(30, 41, 59, 0.8) 0%, transparent 100%);
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr));
+      gap: 1rem;
     }
     
-    /* lightbox */
+    @media (min-width: 640px) {
+      .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr));
+      }
+    }
+    
+    @media (min-width: 768px) {
+      .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr));
+      }
+    }
+    
+    @media (min-width: 1024px) {
+      .gallery-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+    
+    /* Responsive padding and margins */
+    .section-padding {
+      padding: 1.5rem 1rem;
+    }
+    
+    @media (min-width: 640px) {
+      .section-padding {
+        padding: 2rem 1.5rem;
+      }
+    }
+    
+    @media (min-width: 768px) {
+      .section-padding {
+        padding: 3rem 2rem;
+      }
+    }
+    
+    @media (min-width: 1024px) {
+      .section-padding {
+        padding: 4rem 3rem;
+      }
+    }
+    
+    /* Lightbox responsive */
     .lightbox {
       position: fixed;
       inset: 0;
@@ -94,6 +202,7 @@
       opacity: 0;
       visibility: hidden;
       transition: opacity 0.3s ease, visibility 0.3s ease;
+      padding: 1rem;
     }
     
     .lightbox.active {
@@ -105,140 +214,213 @@
       max-width: 95%;
       max-height: 90%;
       position: relative;
+      width: 100%;
+    }
+    
+    @media (min-width: 640px) {
+      .lightbox .imgwrap {
+        max-width: 90%;
+      }
+    }
+    
+    @media (min-width: 1024px) {
+      .lightbox .imgwrap {
+        max-width: 80%;
+      }
     }
     
     .lightbox img {
       max-width: 100%;
-      max-height: 80vh;
+      max-height: 70vh;
       object-fit: contain;
       box-shadow: 0 0 50px rgba(0, 0, 0, 0.6);
       border-radius: 8px;
     }
     
+    @media (min-width: 768px) {
+      .lightbox img {
+        max-height: 80vh;
+      }
+    }
+    
     .lightbox .caption {
       position: absolute;
       left: 0;
-      bottom: -50px;
+      bottom: -60px;
       width: 100%;
       text-align: center;
-      padding: 12px;
+      padding: 0.75rem;
       background: rgba(0, 0, 0, 0.6);
       color: white;
       border-radius: 4px;
-      font-size: 14px;
+      font-size: 0.875rem;
     }
     
-    .btn {
-      display: inline-block;
-      border: 0;
-      padding: 10px 14px;
-      border-radius: 10px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-    
-    .btn.accent {
-      background: var(--accent, #f59e0b);
-      color: #0f172a;
-    }
-    
-    .icon-btn {
-      background: rgba(255, 255, 255, 0.12);
-      color: #fff;
-      padding: 8px;
-      border-radius: 999px;
-      border: 0;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 40px;
-      height: 40px;
-    }
-    
-    .lightbox-close {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      background: rgba(255, 255, 255, 0.15);
-      color: white;
-      border: none;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      font-size: 24px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.3s ease;
-      z-index: 10000;
-    }
-    
-    .lightbox-close:hover {
-      background: rgba(255, 255, 255, 0.25);
-    }
-    
-    .lightbox-nav {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(255, 255, 255, 0.15);
-      color: white;
-      border: none;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      font-size: 24px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.3s ease;
-      z-index: 10000;
-    }
-    
-    .lightbox-nav:hover {
-      background: rgba(255, 255, 255, 0.25);
-    }
-    
-    .lightbox-nav.prev {
-      left: 20px;
-    }
-    
-    .lightbox-nav.next {
-      right: 20px;
-    }
-    
-    @media (max-width: 768px) {
-      .lightbox-nav {
-        width: 40px;
-        height: 40px;
-        font-size: 20px;
+    @media (min-width: 640px) {
+      .lightbox .caption {
+        bottom: -50px;
+        font-size: 1rem;
+        padding: 1rem;
       }
-      
-      .lightbox-close {
-        width: 40px;
-        height: 40px;
-        font-size: 20px;
-        top: 10px;
-        right: 10px;
+    }
+    
+    /* Responsive buttons */
+    .responsive-btn {
+      padding: 0.75rem 1.5rem;
+      font-size: clamp(0.875rem, 2vw, 1rem);
+      width: fit-content;
+      min-width: 140px;
+    }
+    
+    @media (min-width: 640px) {
+      .responsive-btn {
+        padding: 1rem 2rem;
+        min-width: 160px;
       }
+    }
+    
+    /* Responsive navigation */
+    .nav-container {
+      padding: 0.75rem 1rem;
+      background: rgba(0,0,0,0.9);
+    }
+    
+    @media (min-width: 768px) {
+      .nav-container {
+        padding: 1rem 1.5rem;
+      }
+    }
+    
+    .nav-scroll {
+      display: flex;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      gap: 0.5rem;
+    }
+    
+    .nav-scroll::-webkit-scrollbar {
+      display: none;
+    }
+    
+    @media (min-width: 768px) {
+      .nav-scroll {
+        gap: 1rem;
+      }
+    }
+    
+    /* Hero section responsive */
+    .hero-content {
+      flex-direction: column;
+      gap: 2rem;
+      padding: 2rem 1rem;
+    }
+    
+    @media (min-width: 640px) {
+      .hero-content {
+        flex-direction: row;
+        gap: 3rem;
+        padding: 3rem 1.5rem;
+      }
+    }
+    
+    @media (min-width: 1024px) {
+      .hero-content {
+        gap: 4rem;
+        padding: 4rem 2rem;
+      }
+    }
+    
+    .logo-img {
+      width: 80px;
+      height: 80px;
+    }
+    
+    @media (min-width: 640px) {
+      .logo-img {
+        width: 100px;
+        height: 100px;
+      }
+    }
+    
+    @media (min-width: 1024px) {
+      .logo-img {
+        width: 120px;
+        height: 120px;
+      }
+    }
+    
+    /* Responsive team cards */
+    .team-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    
+    @media (min-width: 640px) {
+      .team-grid {
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+      }
+    }
+    
+    @media (min-width: 1024px) {
+      .team-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    
+    /* Responsive payment section */
+    .payment-info {
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    
+    @media (min-width: 640px) {
+      .payment-info {
+        padding: 2rem;
+        margin: 2rem 0;
+      }
+    }
+    
+    /* Touch-friendly elements */
+    button, 
+    a {
+      cursor: pointer;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+    
+    input,
+    textarea,
+    select {
+      font-size: 16px; /* Prevents zoom on iOS */
+    }
+    
+    /* Loading optimization */
+    img {
+      loading: lazy;
+    }
+    
+    /* Safe area for modern devices */
+    .safe-padding {
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
+      padding-bottom: env(safe-area-inset-bottom);
     }
   </style>
   <style>@view-transition { navigation: auto; }</style>
   <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
  </head>
  <body class="min-h-full">
-  <div id="app" class="w-full min-h-full"></div>
+  <div id="app" class="w-full min-h-full safe-padding"></div>
   
   <!-- Lightbox HTML -->
   <div id="lightbox" class="lightbox">
-    <button class="lightbox-close" onclick="closeLightbox()">×</button>
-    <button class="lightbox-nav prev" onclick="prevImage()">‹</button>
-    <button class="lightbox-nav next" onclick="nextImage()">›</button>
+    <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close lightbox">×</button>
+    <button class="lightbox-nav prev" onclick="prevImage()" aria-label="Previous image">‹</button>
+    <button class="lightbox-nav next" onclick="nextImage()" aria-label="Next image">›</button>
     <div class="imgwrap">
-      <img id="lightbox-img" src="" alt="">
+      <img id="lightbox-img" src="" alt="" loading="eager">
       <div id="lightbox-caption" class="caption"></div>
     </div>
   </div>
@@ -288,7 +470,7 @@
       lightboxImg.src = galleryImages[currentImageIndex].src;
       lightboxCaption.textContent = galleryImages[currentImageIndex].caption;
       lightbox.classList.add('active');
-      document.body.style.overflow = 'hidden'; // Prevent scrolling
+      document.body.style.overflow = 'hidden';
       
       // Add keyboard navigation
       document.addEventListener('keydown', handleKeyDown);
@@ -297,7 +479,7 @@
     function closeLightbox() {
       const lightbox = document.getElementById('lightbox');
       lightbox.classList.remove('active');
-      document.body.style.overflow = 'auto'; // Restore scrolling
+      document.body.style.overflow = 'auto';
       document.removeEventListener('keydown', handleKeyDown);
     }
 
@@ -446,373 +628,316 @@
       
       app.innerHTML = `
         <div class="w-full min-h-full chess-bg">
-          <header class="w-full py-12 px-6 relative overflow-hidden">
+          <!-- Hero Section -->
+          <header class="w-full py-6 sm:py-8 md:py-12 px-4 sm:px-6 relative overflow-hidden">
             <div class="absolute inset-0">
-              <img src="https://www.shutterstock.com/image-illustration/middle-chess-game-3d-rendering-260nw-2131723535.jpg" alt="Chess Benefits" style="width: 100%; height: 100%; object-fit: cover; object-position: top; transform: scale(1.2); " onerror="this.style.display='none';">
+              <img src="https://www.shutterstock.com/image-illustration/middle-chess-game-3d-rendering-260nw-2131723535.jpg" 
+                   alt="Chess Benefits" 
+                   class="w-full h-full object-cover object-top"
+                   style="transform: scale(1.2);"
+                   onerror="this.style.display='none';">
               <div class="absolute inset-0" style="background: linear-gradient(180deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.1) 100%);"></div>
             </div>
-            <div class="relative z-10 max-w-6xl mx-auto flex items-center justify-center gap-6">
-            <div class="flex-shrink-0">
-              <img src="https://raw.githubusercontent.com/Sayan22d/Vishnu-Chess-Academy/refs/heads/main/upscalemedia-transformed.png" 
-                        alt="Logo" 
-                        class="w-32 h-32 object-contain">
+            <div class="relative z-10 max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 md:gap-8">
+              <div class="flex-shrink-0">
+                <img src="https://raw.githubusercontent.com/Sayan22d/Vishnu-Chess-Academy/refs/heads/main/upscalemedia-transformed.png" 
+                      alt="Logo" 
+                      class="logo-img object-contain">
+              </div>
+            
+              <div class="text-center px-2">
+                <h1 id="academy-name" 
+                    class="responsive-heading font-bold mb-3 sm:mb-4 text-white" 
+                    style="text-shadow: 2px 2px 4px rgba(0,0,0,0.4); font-family: ${baseFontStack};">
+                  ${config.academy_name || defaultConfig.academy_name}
+                </h1>
+                <p id="tagline" 
+                   class="responsive-text font-semibold italic px-3 py-2 rounded-lg inline-block text-white"
+                   style="background-color: rgba(0, 0, 0, 0.4); text-shadow: 0 0 20px rgba(251, 191, 36, 0.9), 0 0 40px rgba(251, 191, 36, 0.6); font-family: ${baseFontStack};">
+                  "${config.tagline || defaultConfig.tagline}"
+                </p>
+              </div>
             </div>
-          
-            <div class="text-center">
-              <h1 id="academy-name" 
-                  style="font-size: 40px; font-family: ${baseFontStack}; color: ${textColor}; text-shadow: 2px 2px 4px rgba(0,0,0,0.4);" 
-                  class="font-bold mb-4">
-                ${config.academy_name || defaultConfig.academy_name}
-              </h1>
-              <p id="tagline" 
-                 style="font-size: ${baseSize}px; font-family: ${baseFontStack}; color: #ffffff; background-color: rgba(0, 0, 0, 0.4); padding: 8px 16px; border-radius: 8px; display: inline-block; text-shadow: 0 0 20px rgba(251, 191, 36, 0.9), 0 0 40px rgba(251, 191, 36, 0.6), 0 0 60px rgba(251, 191, 36, 0.4);" 
-                 class="font-semibold italic">
-                "${config.tagline || defaultConfig.tagline}"
-              </p>
-            </div>
-          </div>
-
           </header>
 
-          <!-- NAVIGATION -->
-          <nav class="w-full px-4 py-3 sticky top-0 z-50 bg-[rgba(0,0,0,0.9)] backdrop-blur-md shadow-lg">
-            <div class="max-w-6xl mx-auto flex items-center justify-between">
-          
+          <!-- Navigation -->
+          <nav class="w-full nav-container sticky top-0 z-50 backdrop-blur-md shadow-lg">
+            <div class="max-w-6xl mx-auto flex items-center justify-between gap-2 sm:gap-4">
               <!-- Logo -->
               <div class="flex-shrink-0">
                 <img src="https://raw.githubusercontent.com/Sayan22d/Vishnu-Chess-Academy/refs/heads/main/upscalemedia-transformed.png"
                      alt="Academy Logo"
-                     class="w-15 h-14 object-contain">
+                     class="w-10 h-10 sm:w-12 sm:h-12 object-contain">
               </div>
           
-              <!-- Menu Buttons with Slider -->
-              <div class="flex justify-start mx-2 overflow-x-auto gap-2 md:gap-4 md:mx-4 relative scrollbar-hide" id="tab-buttons-container">
-                
+              <!-- Menu Buttons -->
+              <div class="nav-scroll flex-1">
                 <button onclick="switchTab('about')" data-tab="about"
-                        class="tab-button active px-4 py-2 md:px-6 md:py-3 rounded-lg font-bold whitespace-nowrap text-white transition-colors duration-300">
+                        class="tab-button active rounded-lg font-bold text-white transition-colors duration-300">
                   🧠 About
                 </button>
                 
                 <button onclick="switchTab('payment')" data-tab="payment"
-                        class="tab-button px-4 py-2 md:px-6 md:py-3 rounded-lg font-bold whitespace-nowrap text-white transition-colors duration-300">
+                        class="tab-button rounded-lg font-bold text-white transition-colors duration-300">
                   💳 Payments
                 </button>
                 
                 <button onclick="switchTab('whychoose')" data-tab="whychoose"
-                        class="tab-button px-4 py-2 md:px-6 md:py-3 rounded-lg font-bold whitespace-nowrap text-white transition-colors duration-300">
+                        class="tab-button rounded-lg font-bold text-white transition-colors duration-300">
                   🏅 Services
                 </button>
                 
                 <button onclick="switchTab('Photos')" data-tab="Photos"
-                        class="tab-button px-4 py-2 md:px-6 md:py-3 rounded-lg font-bold whitespace-nowrap text-white transition-colors duration-300">
+                        class="tab-button rounded-lg font-bold text-white transition-colors duration-300">
                   📸 Gallery
                 </button>
                 
                 <button onclick="switchTab('Teams')" data-tab="Teams"
-                        class="tab-button px-4 py-2 md:px-6 md:py-3 rounded-lg font-bold whitespace-nowrap text-white transition-colors duration-300">
+                        class="tab-button rounded-lg font-bold text-white transition-colors duration-300">
                   🎭 Teams
                 </button>
                 
                 <button onclick="switchTab('contact')" data-tab="contact"
-                        class="tab-button px-4 py-2 md:px-6 md:py-3 rounded-lg font-bold whitespace-nowrap text-white transition-colors duration-300">
+                        class="tab-button rounded-lg font-bold text-white transition-colors duration-300">
                   📞 Enquiry
                 </button>
                 
                 <button onclick="switchTab('rate')" data-tab="rate"
-                        class="tab-button px-4 py-2 md:px-6 md:py-3 rounded-lg font-bold whitespace-nowrap text-white transition-colors duration-300">
+                        class="tab-button rounded-lg font-bold text-white transition-colors duration-300">
                   ⭐ Rate Us
                 </button>
-          
-                <!-- Slider -->
-                <span id="tab-slider" class="absolute bottom-0 h-1 bg-yellow-400 rounded-full transition-all duration-300"></span>
               </div>
           
-              <!-- Spacer -->
-              <div class="w-8 h-8 flex-shrink-0"></div>
-          
+              <!-- Spacer for alignment -->
+              <div class="w-6 h-6 sm:w-8 sm:h-8 flex-shrink-0"></div>
             </div>
           </nav>
 
-
-          <div class="w-full py-4 px-6 min-h-screen">
+          <!-- Main Content -->
+          <main class="w-full py-4 sm:py-6 px-4 sm:px-6 min-h-screen">
             
+            <!-- About Tab -->
             <div id="about-tab" class="tab-content active">
               <div class="max-w-5xl mx-auto">
-                <div class="rounded-2xl p-6 shadow-2xl mb-6" style="background-color: rgba(0, 0, 0, 0.5);">
-                  <h2 id="about-heading" style="font-size: ${baseSize * 2}px; font-family: ${baseFontStack}; color: ${textColor};" class="font-bold mb-4 text-center">${config.about_heading || defaultConfig.about_heading}</h2>
-                  <p id="about-text" style="font-size: ${baseSize}px; font-family: ${baseFontStack}; color: ${textColor}; line-height: 1.8;" class="opacity-90">${config.about_text || defaultConfig.about_text}</p>
+                <div class="rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-xl mb-4 sm:mb-6" style="background-color: rgba(0, 0, 0, 0.5);">
+                  <h2 id="about-heading" class="responsive-subheading font-bold mb-3 sm:mb-4 text-center" style="font-family: ${baseFontStack}; color: ${textColor};">${config.about_heading || defaultConfig.about_heading}</h2>
+                  <div id="about-text" class="responsive-text opacity-90" style="font-family: ${baseFontStack}; color: ${textColor}; line-height: 1.7;">${config.about_text || defaultConfig.about_text}</div>
                 </div>
                 
-                <div class="rounded-2xl p-6 shadow-2xl text-center" style="background-color: rgba(0, 0, 0, 0.5);">
-                  <h2 style="font-size: ${baseSize * 2}px; font-family: ${baseFontStack}; color: ${textColor};" class="font-bold mb-4">Thank You</h2>
-                  <p id="thank-you-text" style="font-size: ${baseSize}px; font-family: ${baseFontStack}; color: ${textColor}; line-height: 1.8;" class="opacity-90">${config.thank_you_message || defaultConfig.thank_you_message}</p>
+                <div class="rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-xl text-center" style="background-color: rgba(0, 0, 0, 0.5);">
+                  <h2 class="responsive-subheading font-bold mb-3 sm:mb-4" style="font-family: ${baseFontStack}; color: ${textColor};">Thank You</h2>
+                  <p id="thank-you-text" class="responsive-text opacity-90" style="font-family: ${baseFontStack}; color: ${textColor}; line-height: 1.7;">${config.thank_you_message || defaultConfig.thank_you_message}</p>
                 </div>
               </div>
             </div>
 
+            <!-- Payment Tab -->
             <div id="payment-tab" class="tab-content">
               <div class="max-w-4xl mx-auto">
-                <div class="rounded-2xl p-6 shadow-2xl" style="background-color: rgba(0, 0, 0, 0.4);">
-                  <h2 id="payment-heading" style="font-size: ${baseSize * 2}px; font-family: ${baseFontStack}; color: ${textColor};" class="font-bold text-center mb-4">${config.payment_heading || defaultConfig.payment_heading}</h2>
-                  <p style="font-size: ${baseSize}px; font-family: ${baseFontStack}; color: ${textColor};" class="text-center mb-8 opacity-90">To continue your learning journey seamlessly, pay your monthly chess academy fee securely through Instamojo. We made the process quick and convenient — just one click to stay enrolled!</p>
+                <div class="rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-xl" style="background-color: rgba(0, 0, 0, 0.4);">
+                  <h2 id="payment-heading" class="responsive-subheading font-bold text-center mb-3 sm:mb-4" style="font-family: ${baseFontStack}; color: ${textColor};">${config.payment_heading || defaultConfig.payment_heading}</h2>
+                  <p class="responsive-text text-center mb-4 sm:mb-8 opacity-90" style="font-family: ${baseFontStack}; color: ${textColor};">To continue your learning journey seamlessly, pay your monthly chess academy fee securely through Instamojo. We made the process quick and convenient — just one click to stay enrolled!</p>
                   
-                  <div class="rounded-xl p-6 mb-8" style="background-color: rgba(0, 0, 0, 0.7);">
-                    <h3 style="font-size: ${baseSize * 1.2}px; font-family: ${baseFontStack}; color: ${primaryColor};" class="font-bold mb-4">💠 Payment Details:</h3>
-                    <div class="space-y-3">
-                      <div class="flex items-start">
-                        <span style="font-size: ${baseSize * 0.9}px; font-family: ${baseFontStack}; color: ${textColor};" class="font-semibold min-w-32">Fee Amount:</span>
-                        <span id="fee-amount" style="font-size: ${baseSize * 0.9}px; font-family: ${baseFontStack}; color: ${textColor};" class="opacity-90">${config.fee_amount || defaultConfig.fee_amount}</span>
+                  <div class="rounded-lg sm:rounded-xl p-4 sm:p-6 mb-4 sm:mb-8" style="background-color: rgba(0, 0, 0, 0.7);">
+                    <h3 class="text-lg sm:text-xl font-bold mb-3 sm:mb-4" style="font-family: ${baseFontStack}; color: ${primaryColor};">💠 Payment Details:</h3>
+                    <div class="space-y-2 sm:space-y-3">
+                      <div class="flex flex-col sm:flex-row sm:items-start gap-1">
+                        <span class="responsive-small font-semibold sm:min-w-32" style="font-family: ${baseFontStack}; color: ${textColor};">Fee Amount:</span>
+                        <span id="fee-amount" class="responsive-small opacity-90" style="font-family: ${baseFontStack}; color: ${textColor};">${config.fee_amount || defaultConfig.fee_amount}</span>
                       </div>
-                      <div class="flex items-start">
-                        <span style="font-size: ${baseSize * 0.9}px; font-family: ${baseFontStack}; color: ${textColor};" class="font-semibold min-w-32">Due Date:</span>
-                        <span id="due-date" style="font-size: ${baseSize * 0.9}px; font-family: ${baseFontStack}; color: ${textColor};" class="opacity-90">${config.due_date || defaultConfig.due_date}</span>
+                      <div class="flex flex-col sm:flex-row sm:items-start gap-1">
+                        <span class="responsive-small font-semibold sm:min-w-32" style="font-family: ${baseFontStack}; color: ${textColor};">Due Date:</span>
+                        <span id="due-date" class="responsive-small opacity-90" style="font-family: ${baseFontStack}; color: ${textColor};">${config.due_date || defaultConfig.due_date}</span>
                       </div>
-                      <div class="flex items-start">
-                        <span style="font-size: ${baseSize * 0.9}px; font-family: ${baseFontStack}; color: ${textColor};" class="font-semibold min-w-32">Accepted Modes:</span>
-                        <span style="font-size: ${baseSize * 0.9}px; font-family: ${baseFontStack}; color: ${textColor};" class="opacity-90">UPI • Debit Card • Credit Card • Net Banking</span>
+                      <div class="flex flex-col sm:flex-row sm:items-start gap-1">
+                        <span class="responsive-small font-semibold sm:min-w-32" style="font-family: ${baseFontStack}; color: ${textColor};">Accepted Modes:</span>
+                        <span class="responsive-small opacity-90" style="font-family: ${baseFontStack}; color: ${textColor};">UPI • Debit Card • Credit Card • Net Banking</span>
                       </div>
                     </div>
                   </div>
 
                   <div class="text-center">
-                    <a href="https://vishnuchessacademy40.mojo.page/chess-fees" target="_blank" rel="noopener noreferrer" id="payment-button" style="font-size: ${baseSize}px; font-family: ${baseFontStack}; background-color: ${primaryColor}; color: ${bgColor};" class="inline-block px-10 py-4 rounded-lg font-bold shadow-lg hover:opacity-90 transition-opacity">👉 ${config.payment_button_text || defaultConfig.payment_button_text}</a>
-                    <p style="font-size: ${baseSize * 0.85}px; font-family: ${baseFontStack}; color: ${textColor};" class="mt-4 opacity-75">(Safe and secure payment powered by Instamojo)</p>
-                    <p style="font-size: ${baseSize * 0.9}px; font-family: ${baseFontStack}; color: ${textColor};" class="mt-6 opacity-90">After completing the payment, please share your transaction screenshot on WhatsApp for confirmation.</p>
+                    <a href="https://vishnuchessacademy40.mojo.page/chess-fees" target="_blank" rel="noopener noreferrer" id="payment-button" 
+                       class="responsive-btn inline-block rounded-lg font-bold shadow-lg hover:opacity-90 transition-opacity" 
+                       style="font-family: ${baseFontStack}; background-color: ${primaryColor}; color: ${bgColor};">
+                      👉 ${config.payment_button_text || defaultConfig.payment_button_text}
+                    </a>
+                    <p class="responsive-small mt-3 sm:mt-4 opacity-75" style="font-family: ${baseFontStack}; color: ${textColor};">(Safe and secure payment powered by Instamojo)</p>
+                    <p class="responsive-text mt-4 sm:mt-6 opacity-90" style="font-family: ${baseFontStack}; color: ${textColor};">After completing the payment, please share your transaction screenshot on WhatsApp for confirmation.</p>
                   </div>
                 </div>
               </div>
             </div>
 
+            <!-- Why Choose Us Tab -->
             <div id="whychoose-tab" class="tab-content">
               <div class="max-w-5xl mx-auto">
-                
-                <h2 
-                  style="font-size: ${baseSize * 2}px; font-family: ${baseFontStack}; color: ${textColor}; text-shadow: 2px 2px 4px rgba(0,0,0,0.8);" 
-                  class="font-bold text-center mb-6"
-                >
+                <h2 class="responsive-subheading font-bold text-center mb-4 sm:mb-6" style="font-family: ${baseFontStack}; color: ${textColor}; text-shadow: 2px 2px 4px rgba(0,0,0,0.8);">
                   🏅 Why Choose Us
                 </h2>
                 
-                <div class="grid md:grid-cols-2 gap-6">
-                
-                  <div class="feature-card rounded-xl p-6 shadow-lg" 
-                    style="background-color: rgba(0,0,0,0.4); transition: 0.3s;"
-                    onmouseover="this.style.backgroundColor='rgba(0,0,0,0.6)'"
-                    onmouseout="this.style.backgroundColor='rgba(0,0,0,0.4)'"
-                  >
-                    <h3 style="font-size: ${baseSize * 1.1}px; font-family: ${baseFontStack}; color: ${textColor};" 
-                          class="font-bold mb-2">
-                      Experienced Coaching
-                    </h3>
-                    <p style="font-size: ${baseSize * 0.9}px; font-family: ${baseFontStack}; color: ${textColor};">
-                      Learn from a qualified chess coach with professional tournament experience and a proven training methodology.
-                    </p>
-                  </div>
-                
-                  <div class="feature-card rounded-xl p-6 shadow-lg"
-                    style="background-color: rgba(0,0,0,0.4); transition: 0.3s;"
-                    onmouseover="this.style.backgroundColor='rgba(0,0,0,0.6)'"
-                    onmouseout="this.style.backgroundColor='rgba(0,0,0,0.4)'"
-                  >
-                    <h3 style="font-size: ${baseSize * 1.1}px; font-family: ${baseFontStack}; color: ${textColor};" 
-                          class="font-bold mb-2">
-                      Structured Learning Path
-                    </h3>
-                    <p style="font-size: ${baseSize * 0.9}px; font-family: ${baseFontStack}; color: ${textColor};">
-                      A clear and progressive curriculum designed to take students from basics to advanced mastery.
-                    </p>
-                  </div>
-                
-                  <div class="feature-card rounded-xl p-6 shadow-lg"
-                    style="background-color: rgba(0,0,0,0.4); transition: 0.3s;"
-                    onmouseover="this.style.backgroundColor='rgba(0,0,0,0.6)'"
-                    onmouseout="this.style.backgroundColor='rgba(0,0,0,0.4)'"
-                  >
-                    <h3 style="font-size: ${baseSize * 1.1}px; font-family: ${baseFontStack}; color: ${textColor};" 
-                          class="font-bold mb-2">
-                      Regular Tournaments
-                    </h3>
-                    <p style="font-size: ${baseSize * 0.9}px; font-family: ${baseFontStack}; color: ${textColor};">
-                      Participate in weekly practice games and competitive tournaments to build confidence and improve rating.
-                    </p>
-                  </div>
-                
-                  <div class="feature-card rounded-xl p-6 shadow-lg"
-                    style="background-color: rgba(0,0,0,0.4); transition: 0.3s;"
-                    onmouseover="this.style.backgroundColor='rgba(0,0,0,0.6)'"
-                    onmouseout="this.style.backgroundColor='rgba(0,0,0,0.4)'"
-                  >
-                    <h3 style="font-size: ${baseSize * 1.1}px; font-family: ${baseFontStack}; color: ${textColor};" 
-                          class="font-bold mb-2">
-                      Personalized Feedback
-                    </h3>
-                    <p style="font-size: ${baseSize * 0.9}px; font-family: ${baseFontStack}; color: ${textColor};">
-                      Get detailed game analysis and tailored improvement plans to speed up your progress.
-                    </p>
-                  </div>
-                
-                  <div class="feature-card rounded-xl p-6 shadow-lg"
-                    style="background-color: rgba(0,0,0,0.4); transition: 0.3s;"
-                    onmouseover="this.style.backgroundColor='rgba(0,0,0,0.6)'"
-                    onmouseout="this.style.backgroundColor='rgba(0,0,0,0.4)'"
-                  >
-                    <h3 style="font-size: ${baseSize * 1.1}px; font-family: ${baseFontStack}; color: ${textColor};" 
-                          class="font-bold mb-2">
-                      Flexible Sessions
-                    </h3>
-                    <p style="font-size: ${baseSize * 0.9}px; font-family: ${baseFontStack}; color: ${textColor};">
-                      Choose between online or offline classes based on your schedule and convenience.
-                    </p>
-                  </div>
-                
-                  <div class="feature-card rounded-xl p-6 shadow-lg"
-                    style="background-color: rgba(0,0,0,0.4); transition: 0.3s;"
-                    onmouseover="this.style.backgroundColor='rgba(0,0,0,0.6)'"
-                    onmouseout="this.style.backgroundColor='rgba(0,0,0,0.4)'"
-                  >
-                    <h3 style="font-size: ${baseSize * 1.1}px; font-family: ${baseFontStack}; color: ${textColor};" 
-                          class="font-bold mb-2">
-                      Supportive Community
-                    </h3>
-                    <p style="font-size: ${baseSize * 0.9}px; font-family: ${baseFontStack}; color: ${textColor};">
-                      Join a friendly and motivating chess community that encourages consistent learning and growth.
-                    </p>
-                  </div>
-                
-                </div>
-              </div>
-            </div>
-
-            <div id="Photos-tab" class="tab-content">
-              <div class="max-w-6xl mx-auto">
-                <h2 
-                  style="font-size: ${baseSize * 2}px; font-family: ${baseFontStack}; color: ${textColor}; text-shadow: 2px 2px 4px rgba(0,0,0,0.8);" 
-                  class="font-bold text-center mb-6"
-                >
-                  📸 Academy Gallery (Click to Enlarge!)
-                </h2>
-                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                  
-                  ${galleryImages.map((img, index) => `
-                    <div class="rounded-xl overflow-hidden shadow-lg transform hover:scale-[1.02] transition-transform duration-300 cursor-pointer" style="background-color: rgba(0,0,0,0.4);" onclick="openLightbox('${img.src}', '${img.caption}')">
-                      <img src="${img.src}" alt="${img.caption}" class="w-full h-48 object-cover">
-                      <p class="p-2 text-center text-sm" style="color: ${textColor};">${img.caption}</p>
+                <div class="responsive-grid gap-4 sm:gap-6">
+                  ${[{
+                    title: "Experienced Coaching",
+                    desc: "Learn from a qualified chess coach with professional tournament experience and a proven training methodology."
+                  }, {
+                    title: "Structured Learning Path",
+                    desc: "A clear and progressive curriculum designed to take students from basics to advanced mastery."
+                  }, {
+                    title: "Regular Tournaments",
+                    desc: "Participate in weekly practice games and competitive tournaments to build confidence and improve rating."
+                  }, {
+                    title: "Personalized Feedback",
+                    desc: "Get detailed game analysis and tailored improvement plans to speed up your progress."
+                  }, {
+                    title: "Flexible Sessions",
+                    desc: "Choose between online or offline classes based on your schedule and convenience."
+                  }, {
+                    title: "Supportive Community",
+                    desc: "Join a friendly and motivating chess community that encourages consistent learning and growth."
+                  }].map(item => `
+                    <div class="feature-card rounded-lg sm:rounded-xl p-4 sm:p-6 shadow-lg" 
+                         style="background-color: rgba(0,0,0,0.4);">
+                      <h3 class="text-base sm:text-lg font-bold mb-2" style="font-family: ${baseFontStack}; color: ${textColor};">${item.title}</h3>
+                      <p class="responsive-small opacity-90" style="font-family: ${baseFontStack}; color: ${textColor};">${item.desc}</p>
                     </div>
                   `).join('')}
-
                 </div>
               </div>
             </div>
 
-            <div id="Teams-tab" class="tab-content">
+            <!-- Photos Tab -->
+            <div id="Photos-tab" class="tab-content">
               <div class="max-w-6xl mx-auto">
-                <h2 
-                  style="font-size: ${baseSize * 2}px; font-family: ${baseFontStack}; color: ${textColor}; text-shadow: 2px 2px 4px rgba(0,0,0,0.8);" 
-                  class="font-bold text-center mb-6"
-                >
+                <h2 class="responsive-subheading font-bold text-center mb-4 sm:mb-6" style="font-family: ${baseFontStack}; color: ${textColor}; text-shadow: 2px 2px 4px rgba(0,0,0,0.8);">
+                  📸 Academy Gallery (Click to Enlarge!)
+                </h2>
+                <div class="gallery-grid">
+                  ${galleryImages.map((img, index) => `
+                    <div class="rounded-lg overflow-hidden shadow-lg transform hover:scale-[1.02] transition-transform duration-300 cursor-pointer" 
+                         style="background-color: rgba(0,0,0,0.4);" 
+                         onclick="openLightbox('${img.src}', '${img.caption}')">
+                      <img src="${img.src}" 
+                           alt="${img.caption}" 
+                           class="w-full h-40 sm:h-48 object-cover"
+                           loading="lazy">
+                      <p class="p-2 text-center responsive-small" style="color: ${textColor};">${img.caption}</p>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            </div>
+
+            <!-- Teams Tab -->
+            <div id="Teams-tab" class="tab-content">
+              <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="responsive-subheading font-bold text-center mb-8 sm:mb-10 text-2xl sm:text-3xl" 
+                    style="font-family: ${baseFontStack}; color: ${textColor}; text-shadow: 2px 2px 4px rgba(0,0,0,0.8);">
                   ♟️ Our Expert Team
                 </h2>
-                
-                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                  
-                  <div class="text-center p-6 rounded-xl shadow-2xl transition-all duration-300 hover:shadow-yellow-500/50" style="background-color: rgba(0, 0, 0, 0.4);">
-                    <img src="https://images.unsplash.com/photo-1571409605349-2c70094d241c?q=80&w=3000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Vishnu Kejriwal" class="w-32 h-32 object-cover rounded-full mx-auto mb-4 border-4 border-yellow-500">
-                    <h3 style="font-size: ${baseSize * 1.5}px; color: ${primaryColor};" class="font-bold">Vishnu Kejriwal</h3>
-                    <p style="font-size: ${baseSize}px; color: ${textColor};" class="opacity-80 mb-2">Founder & Head Coach (FIDE Rated)</p>
-                    <p style="font-size: ${baseSize * 0.9}px; color: ${textColor};" class="opacity-70">Visionary leader with 7+ years of coaching experience, specializing in advanced strategy and endgame theory.</p>
-                  </div>
-
-                  <div class="text-center p-6 rounded-xl shadow-2xl transition-all duration-300 hover:shadow-blue-500/50" style="background-color: rgba(0, 0, 0, 0.4);">
-                    <img src="https://images.unsplash.com/photo-1563237023-af215a452109?q=80&w=3000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Priya Sharma" class="w-32 h-32 object-cover rounded-full mx-auto mb-4 border-4 border-blue-500">
-                    <h3 style="font-size: ${baseSize * 1.5}px; color: ${textColor};" class="font-bold">Priya Sharma</h3>
-                    <p style="font-size: ${baseSize}px; color: ${textColor};" class="opacity-80 mb-2">Senior Coach (National Level Player)</p>
-                    <p style="font-size: ${baseSize * 0.9}px; color: ${textColor};" class="opacity-70">Focuses on opening preparation and tournament psychology for competitive players.</p>
-                  </div>
-
-                  <div class="text-center p-6 rounded-xl shadow-2xl transition-all duration-300 hover:shadow-green-500/50" style="background-color: rgba(0, 0, 0, 0.4);">
-                    <img src="https://images.unsplash.com/photo-1629851410756-32d72e7c050f?q=80&w=3000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Rohan Gupta" class="w-32 h-32 object-cover rounded-full mx-auto mb-4 border-4 border-green-500">
-                    <h3 style="font-size: ${baseSize * 1.5}px; color: ${textColor};" class="font-bold">Rohan Gupta</h3>
-                    <p style="font-size: ${baseSize}px; color: ${textColor};" class="opacity-80 mb-2">Junior Coach & Basics Expert</p>
-                    <p style="font-size: ${baseSize * 0.9}px; color: ${textColor};" class="opacity-70">Passionate about teaching foundational concepts to beginners and young enthusiasts.</p>
-                  </div>
+            
+                <div class="team-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+                  ${[{
+                    name: "Vishnu Kejriwal",
+                    role: "Founder & Head Coach (FIDE Rated)",
+                    desc: "Visionary leader with 7+ years of coaching experience, specializing in advanced strategy and endgame theory.<br><br>Vishnu Kejriwal is a passionate chess professional and the driving force behind our academy’s teaching philosophy. A FIDE-rated player with a Rapid rating of 1465, Vishnu combines competitive experience with a deep love for mentoring young minds.<br><br>He has spent years immersed in the game - studying strategy, training with strong players, and participating in rated events across India.<br><br>Vishnu believes that chess is more than a sport; it is a tool to build focus, discipline, and decision-making skills in children and adults alike.<br><br>With a calm teaching style and a structured training approach, he ensures that every student receives personal attention, whether they are absolute beginners or improving tournament players.<br><br>Vishnu’s vision is to create a nurturing, high-quality learning environment where students can grow into confident, creative, and competitive chess thinkers.",
+                    img: "https://raw.githubusercontent.com/Sayan22d/Vishnu-Chess-Academy/refs/heads/main/vishnu%20Photo.jpg",
+                    border: "border-yellow-500",
+                    glow: "shadow-yellow-500/40"
+                  }, {
+                    name: "Sayan Koley",
+                    role: "Co-Founder & Technical Analyst",
+                    desc: "Focuses on tournament psychology for competitive players.<br><br>Sayan Koley is the co-founder and strategic lead of our chess academy, bringing a strong background in business analysis, operations, and process optimization to the world of chess education.<br><br>With a passion for nurturing young talent, he focuses on building a structured, high-quality learning environment where students can develop not just their chess skills, but also critical thinking, focus, and decision-making abilities.<br><br>Leveraging his expertise in data-driven strategy and operational excellence, Sayan ensures that the academy runs efficiently, from curriculum design to student progress tracking, creating a seamless experience for learners and parents alike.<br><br>His vision is to combine professional management with a love for the game, helping the academy grow into a hub for chess enthusiasts of all ages.",
+                    img: "https://raw.githubusercontent.com/Sayan22d/Vishnu-Chess-Academy/refs/heads/main/sayan%20photo.jpg",
+                    border: "border-blue-500",
+                    glow: "shadow-blue-500/40"
+                  }, {
+                    name: "Vikash Pandit",
+                    role: "Co-Founder & Marketing Expert",
+                    desc: "Passionate about teaching foundational concepts to beginners and young enthusiasts.<br><br>Vikash Pandit is the Co-Founder & Marketing Expert of our chess academy, bringing a strong commerce background and a keen understanding of business growth strategies.<br><br>He specializes in brand building, marketing strategy, and outreach, ensuring that the academy reaches aspiring chess enthusiasts across all age groups.<br><br>With a focus on strategic communication, student engagement, and community building, Vikash plays a key role in promoting the academy’s vision of creating a structured, professional, and inspiring environment for learning chess.<br><br>His commercial expertise ensures that the academy not only thrives as a learning center but also grows sustainably as a reputable brand in the chess education space.",
+                    img: "https://raw.githubusercontent.com/Sayan22d/Vishnu-Chess-Academy/refs/heads/main/Vikash%20Photo.jpg",
+                    border: "border-green-500",
+                    glow: "shadow-green-500/40"
+                  }].map(member => `
+                    <div class="text-center p-6 sm:p-7 rounded-xl shadow-xl transition-all duration-300 hover:scale-105 hover:${member.glow}" 
+                         style="background-color: rgba(0, 0, 0, 0.4);">
+                      <img src="${member.img}" 
+                           alt="${member.name}" 
+                           class="w-28 h-28 sm:w-36 sm:h-36 object-cover rounded-full mx-auto mb-4 sm:mb-5 border-4 ${member.border} transition-transform duration-300 hover:scale-110">
+                      <h3 class="text-xl sm:text-2xl font-bold mb-2 sm:mb-3" style="color: ${member.border.replace('border-', '')};">
+                        ${member.name}
+                      </h3>
+                      <p class="text-base sm:text-lg font-semibold opacity-90 mb-3" style="color: ${member.border.replace('border-', '')};">
+                        ${member.role}
+                      </p>
+                      <p class="text-sm sm:text-base opacity-80 leading-relaxed" style="color: ${textColor};">
+                        ${member.desc}
+                      </p>
+                    </div>
+                  `).join('')}
                 </div>
               </div>
             </div>
+
+
             
+            <!-- Contact Tab -->
             <div id="contact-tab" class="tab-content">
               <div class="max-w-4xl mx-auto">
-                <div class="rounded-2xl p-6 shadow-2xl text-center" style="background-color: rgba(0, 0, 0, 0.5);">
-                  <h2 style="font-size: ${baseSize * 2}px; font-family: ${baseFontStack}; color: ${textColor};" class="font-bold mb-4">📞 Contact & Support</h2>
-                  <div class="space-y-6">
+                <div class="rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-xl text-center" style="background-color: rgba(0, 0, 0, 0.5);">
+                  <h2 class="responsive-subheading font-bold mb-3 sm:mb-4" style="font-family: ${baseFontStack}; color: ${textColor};">📞 Contact & Support</h2>
+                  <div class="space-y-4 sm:space-y-6">
                     <div>
-                      <p style="font-size: ${baseSize}px; font-family: ${baseFontStack}; color: ${textColor}; font-weight: bold;" class="mb-2">📱 Phone / WhatsApp:</p>
-                      <a href="tel:+918240526447" id="phone-link" style="font-size: ${baseSize * 1.1}px; font-family: ${baseFontStack}; color: ${textColor};" class="hover:opacity-80 transition-opacity">${config.phone_number || defaultConfig.phone_number}</a>
+                      <p class="responsive-text font-bold mb-1 sm:mb-2" style="font-family: ${baseFontStack}; color: ${textColor};">📱 Phone / WhatsApp:</p>
+                      <a href="tel:+918240526447" id="phone-link" class="responsive-text hover:opacity-80 transition-opacity block sm:inline" style="font-family: ${baseFontStack}; color: ${textColor};">${config.phone_number || defaultConfig.phone_number}</a>
                     </div>
                     <div>
-                      <p style="font-size: ${baseSize}px; font-family: ${baseFontStack}; color: ${textColor}; font-weight: bold;" class="mb-2">📧 Email:</p>
-                      <a href="mailto:vishnukejriwal1996@gmail.com" id="email-link" style="font-size: ${baseSize * 1.1}px; font-family: ${baseFontStack}; color: ${textColor};" class="hover:opacity-80 transition-opacity">${config.email_address || defaultConfig.email_address}</a>
+                      <p class="responsive-text font-bold mb-1 sm:mb-2" style="font-family: ${baseFontStack}; color: ${textColor};">📧 Email:</p>
+                      <a href="mailto:vishnukejriwal1996@gmail.com" id="email-link" class="responsive-text hover:opacity-80 transition-opacity block sm:inline" style="font-family: ${baseFontStack}; color: ${textColor};">${config.email_address || defaultConfig.email_address}</a>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
 
+            <!-- Rate Tab -->
             <div id="rate-tab" class="tab-content">
               <div class="max-w-4xl mx-auto">
-            
-                <div class="rounded-2xl p-6 shadow-2xl text-center" style="background-color: rgba(0, 0, 0, 0.5);">
-            
-                  <h2 style="font-size: ${baseSize * 2}px; font-family: ${baseFontStack}; color: ${textColor};"
-                      class="font-bold mb-4">
-                    ⭐ Rate & Reviews
-                  </h2>
-            
-                  <p style="font-size: ${baseSize}px; font-family: ${baseFontStack}; color: ${textColor};"
-                     class="mb-4">
+                <div class="rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-xl text-center mb-4 sm:mb-6" style="background-color: rgba(0, 0, 0, 0.5);">
+                  <h2 class="responsive-subheading font-bold mb-3 sm:mb-4" style="font-family: ${baseFontStack}; color: ${textColor};">⭐ Rate & Reviews</h2>
+                  <p class="responsive-text mb-3 sm:mb-4" style="font-family: ${baseFontStack}; color: ${textColor};">
                     Current average rating on Google / public listings:
                     <strong>4.8 / 5</strong>
                   </p>
-            
-                  <div class="space-y-4 text-left">
-            
-                    <div class="bg-white/10 p-4 rounded-lg">
-                      <p style="font-size: ${baseSize * 1.1}px; font-family: ${baseFontStack}; color: ${textColor};">
-                        "The instructors at Vishnu Chess Academy provide engaging lessons and help students of all
-                        levels. Outstanding training environment." — Verified Review
+                  <div class="space-y-3 sm:space-y-4 text-left">
+                    <div class="bg-white/10 p-3 sm:p-4 rounded-lg">
+                      <p class="responsive-text" style="font-family: ${baseFontStack}; color: ${textColor};">
+                        "The instructors at Vishnu Chess Academy provide engaging lessons and help students of all levels. Outstanding training environment." — Verified Review
                       </p>
                     </div>
-            
-                    <div class="bg-white/10 p-4 rounded-lg">
-                      <p style="font-size: ${baseSize * 1.1}px; font-family: ${baseFontStack}; color: ${textColor};">
-                        "Very supportive coaches; my child's chess improved a lot. Highly recommend for serious
-                        learners." — Student Feedback
+                    <div class="bg-white/10 p-3 sm:p-4 rounded-lg">
+                      <p class="responsive-text" style="font-family: ${baseFontStack}; color: ${textColor};">
+                        "Very supportive coaches; my child's chess improved a lot. Highly recommend for serious learners." — Student Feedback
                       </p>
                     </div>
-            
                   </div>
                 </div>
             
-                <div class="rounded-2xl p-6 shadow-2xl text-center" style="background-color: rgba(0, 0, 0, 0.5);">
-                  <h2 style="font-size: ${baseSize * 2}px; font-family: ${baseFontStack}; color: ${textColor};"
-                      class="font-bold mb-4">
-                    📋 Submit Your Review
-                  </h2>
-            
-                  <p style="font-size: ${baseSize}px; font-family: ${baseFontStack}; color: ${textColor};" class="mb-4">
-                    We value your feedback! Please leave your review by clicking the button below:
-                  </p>
-            
+                <div class="rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-xl text-center" style="background-color: rgba(0, 0, 0, 0.5);">
+                  <h2 class="responsive-subheading font-bold mb-3 sm:mb-4" style="font-family: ${baseFontStack}; color: ${textColor};">📋 Submit Your Review</h2>
+                  <p class="responsive-text mb-3 sm:mb-4" style="font-family: ${baseFontStack}; color: ${textColor};">We value your feedback! Please leave your review by clicking the button below:</p>
                   <button onclick="openReviewForm()" 
-                          class="px-6 py-3 rounded-lg font-bold bg-yellow-400/20 text-yellow-300 transition-all">
+                          class="responsive-btn rounded-lg font-bold transition-all bg-yellow-400/20 text-yellow-300 hover:bg-yellow-400/30">
                     Leave a Review
                   </button>
                 </div>
-            
               </div>
             </div>
+          </main>
 
-          </div> <footer class="w-full py-2 px-6 text-center" style="background-color: ${surfaceColor};">
-            <p style="font-size: ${baseSize * 0.85}px; font-family: ${baseFontStack}; color: ${textColor};" class="opacity-75">© 2017 Vishnu Chess Academy. All rights reserved.</p>
+          <!-- Footer -->
+          <footer class="w-full py-3 sm:py-4 px-4 sm:px-6 text-center" style="background-color: ${surfaceColor};">
+            <p class="responsive-small opacity-75" style="font-family: ${baseFontStack}; color: ${textColor};">© 2017 Vishnu Chess Academy. All rights reserved.</p>
           </footer>
         </div>
       `;
@@ -828,10 +953,28 @@
         
         // Set active tab
         switchTab(currentTab);
+        
+        // Initialize tab slider position
+        updateTabSlider();
       }, 0);
     }
+
+    function updateTabSlider() {
+      const activeButton = document.querySelector('.tab-button.active');
+      if (activeButton) {
+        const slider = document.getElementById('tab-slider');
+        if (slider) {
+          const rect = activeButton.getBoundingClientRect();
+          const container = activeButton.parentElement;
+          const containerRect = container.getBoundingClientRect();
+          
+          slider.style.width = `${rect.width * 0.8}px`;
+          slider.style.left = `${rect.left - containerRect.left + rect.width * 0.1}px`;
+          slider.style.bottom = '0';
+        }
+      }
+    }
     
-     
     function mapToCapabilities(config) {
       return {
         recolorables: [
@@ -852,7 +995,7 @@
           {
             get: () => config.text_color || defaultConfig.text_color,
             set: (value) => {
-              config.text_color = value;
+              config.text_text_color = value;
               window.elementSdk.setConfig({ text_color: value });
             }
           },
@@ -913,6 +1056,9 @@
         mapToEditPanelValues
       });
     }
+
+    // Add resize listener for tab slider
+    window.addEventListener('resize', updateTabSlider);
 
     render();
   </script>
