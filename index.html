@@ -264,6 +264,63 @@
       }
     }
     
+    /* Team Modal Styles */
+    .team-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 9998;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    
+    .team-modal.active {
+      display: flex;
+    }
+    
+    .team-modal-content {
+      background: rgba(30, 41, 59, 0.95);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      max-width: 600px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      transform: scale(0.95);
+      opacity: 0;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+    
+    .team-modal.active .team-modal-content {
+      transform: scale(1);
+      opacity: 1;
+    }
+    
+    .team-modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 2rem;
+      cursor: pointer;
+      width: 2.5rem;
+      height: 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: background 0.3s ease;
+    }
+    
+    .team-modal-close:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
     /* Responsive buttons */
     .responsive-btn {
       padding: 0.75rem 1.5rem;
@@ -425,6 +482,14 @@
     </div>
   </div>
   
+  <!-- Team Modal HTML -->
+  <div id="teamModal" class="team-modal">
+    <div class="team-modal-content">
+      <button class="team-modal-close" onclick="closeTeamModal()">&times;</button>
+      <div id="teamModalContent"></div>
+    </div>
+  </div>
+  
   <script>
     // Lightbox variables
     let currentImageIndex = 0;
@@ -452,6 +517,34 @@
       {
         src: 'https://images.unsplash.com/photo-1571409605349-2c70094d241c?q=80&w=3000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
         caption: 'Casual Play and Learning'
+      }
+    ];
+
+    // Team data
+    const teamData = [
+      {
+        name: "Vishnu Kejriwal",
+        role: "Founder & Head Coach (FIDE Rated)",
+        shortDesc: "Visionary leader with 7+ years of coaching experience, specializing in advanced strategy and endgame theory.",
+        fullDesc: "Visionary leader with 7+ years of coaching experience, specializing in advanced strategy and endgame theory.<br><br>Vishnu Kejriwal is a passionate chess professional and the driving force behind our academy's teaching philosophy. A FIDE-rated player with a Rapid rating of 1465, Vishnu combines competitive experience with a deep love for mentoring young minds.<br><br>He has spent years immersed in the game—studying strategy, training with strong players, and participating in rated events across India.<br><br>Vishnu believes that chess is more than a sport; it is a tool to build focus, discipline, and decision-making skills in children and adults alike.<br><br>With a calm teaching style and a structured training approach, he ensures that every student receives personal attention, whether they are absolute beginners or improving tournament players.<br><br>Vishnu's vision is to create a nurturing, high-quality learning environment where students can grow into confident, creative, and competitive chess thinkers.",
+        img: "https://raw.githubusercontent.com/Sayan22d/Vishnu-Chess-Academy/refs/heads/main/vishnu%20Photo.jpg",
+        color: "yellow"
+      },
+      {
+        name: "Sayan Koley",
+        role: "Co-Founder & Technical Analyst",
+        shortDesc: "Focuses on tournament psychology for competitive players and structured learning for young talent.",
+        fullDesc: "Focuses on tournament psychology for competitive players.<br><br>Sayan Koley is the co-founder and strategic lead of our chess academy, bringing a strong background in business analysis, operations, and process optimization to the world of chess education.<br><br>With a passion for nurturing young talent, he focuses on building a structured, high-quality learning environment where students can develop not just their chess skills, but also critical thinking, focus, and decision-making abilities.<br><br>Leveraging his expertise in data-driven strategy and operational excellence, Sayan ensures that the academy runs efficiently, from curriculum design to student progress tracking, creating a seamless experience for learners and parents alike.<br><br>His vision is to combine professional management with a love for the game, helping the academy grow into a hub for chess enthusiasts of all ages.",
+        img: "https://raw.githubusercontent.com/Sayan22d/Vishnu-Chess-Academy/refs/heads/main/sayan%20photo.jpg",
+        color: "blue"
+      },
+      {
+        name: "Vikash Pandit",
+        role: "Co-Founder & Marketing Expert",
+        shortDesc: "Specializes in marketing strategy, student engagement, and promoting chess learning to all ages.",
+        fullDesc: "Passionate about teaching foundational concepts to beginners and young enthusiasts.<br><br>Vikash Pandit is the Co-Founder & Marketing Expert of our chess academy, bringing a strong commerce background and a keen understanding of business growth strategies.<br><br>He specializes in brand building, marketing strategy, and outreach, ensuring that the academy reaches aspiring chess enthusiasts across all age groups.<br><br>With a focus on strategic communication, student engagement, and community building, Vikash plays a key role in promoting the academy's vision of creating a structured, professional, and inspiring environment for learning chess.<br><br>His commercial expertise ensures that the academy not only thrives as a learning center but also grows sustainably as a reputable brand in the chess education space.",
+        img: "https://raw.githubusercontent.com/Sayan22d/Vishnu-Chess-Academy/refs/heads/main/Vikash%20Photo.jpg",
+        color: "green"
       }
     ];
 
@@ -519,6 +612,52 @@
     document.getElementById('lightbox').addEventListener('click', function(event) {
       if (event.target === this) {
         closeLightbox();
+      }
+    });
+
+    // Team modal functions
+    function openTeamModal(index) {
+      const modal = document.getElementById('teamModal');
+      const modalContent = document.getElementById('teamModalContent');
+      const member = teamData[index];
+      
+      modalContent.innerHTML = `
+        <div class="text-center text-white">
+          <img src="${member.img}" 
+               alt="${member.name}" 
+               class="w-32 h-32 sm:w-40 sm:h-40 object-cover rounded-full mx-auto mb-6 border-4 border-${member.color}-500">
+          <h3 class="text-2xl sm:text-3xl font-bold mb-3 text-${member.color}-500">${member.name}</h3>
+          <p class="text-lg sm:text-xl font-semibold opacity-90 mb-6 text-${member.color}-500">${member.role}</p>
+          <div class="text-left text-base sm:text-lg opacity-80 leading-relaxed space-y-4">
+            ${member.fullDesc.split('<br><br>').map(para => `<p>${para}</p>`).join('')}
+          </div>
+        </div>
+      `;
+      
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      
+      // Add keyboard navigation for modal
+      document.addEventListener('keydown', handleModalKeyDown);
+    }
+
+    function closeTeamModal() {
+      const modal = document.getElementById('teamModal');
+      modal.classList.remove('active');
+      document.body.style.overflow = 'auto';
+      document.removeEventListener('keydown', handleModalKeyDown);
+    }
+
+    function handleModalKeyDown(event) {
+      if (event.key === 'Escape') {
+        closeTeamModal();
+      }
+    }
+
+    // Close modal when clicking on the background
+    document.getElementById('teamModal').addEventListener('click', function(event) {
+      if (event.target === this) {
+        closeTeamModal();
       }
     });
 
@@ -831,55 +970,28 @@
             <!-- Teams Tab -->
             <div id="Teams-tab" class="tab-content">
               <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 class="responsive-subheading font-bold text-center mb-8 sm:mb-10 text-2xl sm:text-3xl" 
+                <h2 class="responsive-subheading font-bold text-center mb-8 sm:mb-10"
                     style="font-family: ${baseFontStack}; color: ${textColor}; text-shadow: 2px 2px 4px rgba(0,0,0,0.8);">
-                  ♟️ Our Experts
+                  ♟️ Our Expert Team
                 </h2>
             
-                <div class="team-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-                  ${[{
-                    name: "Vishnu Kejriwal",
-                    role: "Founder & Head Coach (FIDE Rated)",
-                    desc: "Visionary leader with 7+ years of coaching experience, specializing in advanced strategy and endgame theory.<br><br>Vishnu Kejriwal is a passionate chess professional and the driving force behind our academy’s teaching philosophy. A FIDE-rated player with a Rapid rating of 1465, Vishnu combines competitive experience with a deep love for mentoring young minds.<br><br>He has spent years immersed in the game - studying strategy, training with strong players, and participating in rated events across India.<br><br>Vishnu believes that chess is more than a sport; it is a tool to build focus, discipline, and decision-making skills in children and adults alike.<br><br>With a calm teaching style and a structured training approach, he ensures that every student receives personal attention, whether they are absolute beginners or improving tournament players.<br><br>Vishnu’s vision is to create a nurturing, high-quality learning environment where students can grow into confident, creative, and competitive chess thinkers.",
-                    img: "https://raw.githubusercontent.com/Sayan22d/Vishnu-Chess-Academy/refs/heads/main/vishnu%20Photo.jpg",
-                    border: "border-yellow-500",
-                    glow: "shadow-yellow-500/40"
-                  }, {
-                    name: "Sayan Koley",
-                    role: "Co-Founder & Technical Analyst",
-                    desc: "Focuses on tournament psychology for competitive players.<br><br>Sayan Koley is the co-founder and strategic lead of our chess academy, bringing a strong background in business analysis, operations, and process optimization to the world of chess education.<br><br>With a passion for nurturing young talent, he focuses on building a structured, high-quality learning environment where students can develop not just their chess skills, but also critical thinking, focus, and decision-making abilities.<br><br>Leveraging his expertise in data-driven strategy and operational excellence, Sayan ensures that the academy runs efficiently, from curriculum design to student progress tracking, creating a seamless experience for learners and parents alike.<br><br>His vision is to combine professional management with a love for the game, helping the academy grow into a hub for chess enthusiasts of all ages.",
-                    img: "https://raw.githubusercontent.com/Sayan22d/Vishnu-Chess-Academy/refs/heads/main/sayan%20photo.jpg",
-                    border: "border-blue-500",
-                    glow: "shadow-blue-500/40"
-                  }, {
-                    name: "Vikash Pandit",
-                    role: "Co-Founder & Marketing Expert",
-                    desc: "Passionate about teaching foundational concepts to beginners and young enthusiasts.<br><br>Vikash Pandit is the Co-Founder & Marketing Expert of our chess academy, bringing a strong commerce background and a keen understanding of business growth strategies.<br><br>He specializes in brand building, marketing strategy, and outreach, ensuring that the academy reaches aspiring chess enthusiasts across all age groups.<br><br>With a focus on strategic communication, student engagement, and community building, Vikash plays a key role in promoting the academy’s vision of creating a structured, professional, and inspiring environment for learning chess.<br><br>His commercial expertise ensures that the academy not only thrives as a learning center but also grows sustainably as a reputable brand in the chess education space.",
-                    img: "https://raw.githubusercontent.com/Sayan22d/Vishnu-Chess-Academy/refs/heads/main/Vikash%20Photo.jpg",
-                    border: "border-green-500",
-                    glow: "shadow-green-500/40"
-                  }].map(member => `
-                    <div class="text-center p-6 sm:p-7 rounded-xl shadow-xl transition-all duration-300 hover:scale-105 hover:${member.glow}" 
-                         style="background-color: rgba(0, 0, 0, 0.4);">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+                  ${teamData.map((member, index) => `
+                    <div class="text-center p-6 sm:p-7 rounded-xl shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-${member.color}-500/40 cursor-pointer"
+                         onclick="openTeamModal(${index})"
+                         style="background-color: rgba(0,0,0,0.4);">
                       <img src="${member.img}" 
                            alt="${member.name}" 
-                           class="w-28 h-28 sm:w-36 sm:h-36 object-cover rounded-full mx-auto mb-4 sm:mb-5 border-4 ${member.border} transition-transform duration-300 hover:scale-110">
-                      <h3 class="text-xl sm:text-2xl font-bold mb-2 sm:mb-3" style="color: ${member.border.replace('border-', '')};">
-                        ${member.name}
-                      </h3>
-                      <p class="text-base sm:text-lg font-semibold opacity-90 mb-3" style="color: ${member.border.replace('border-', '')};">
-                        ${member.role}
-                      </p>
-                      <p class="text-sm sm:text-base opacity-80 leading-relaxed" style="color: ${textColor};">
-                        ${member.desc}
-                      </p>
+                           class="w-28 h-28 sm:w-36 sm:h-36 object-cover rounded-full mx-auto mb-4 sm:mb-5 border-4 border-${member.color}-500 transition-transform duration-300 hover:scale-110">
+                      <h3 class="text-xl sm:text-2xl font-bold mb-2 sm:mb-3 text-${member.color}-500">${member.name}</h3>
+                      <p class="text-base sm:text-lg font-semibold opacity-90 mb-3 text-${member.color}-500">${member.role}</p>
+                      <p class="text-sm sm:text-base opacity-80 leading-relaxed mb-2">${member.shortDesc}</p>
+                      <span class="text-sm font-semibold underline text-${member.color}-500">Read More</span>
                     </div>
                   `).join('')}
                 </div>
               </div>
             </div>
-
-
             
             <!-- Contact Tab -->
             <div id="contact-tab" class="tab-content">
@@ -995,7 +1107,7 @@
           {
             get: () => config.text_color || defaultConfig.text_color,
             set: (value) => {
-              config.text_text_color = value;
+              config.text_color = value;
               window.elementSdk.setConfig({ text_color: value });
             }
           },
@@ -1064,4 +1176,3 @@
   </script>
  <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9a7926cf82c848fb',t:'MTc2NDY2MDk2OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
-
